@@ -73,6 +73,9 @@ function Body({ requestBodyMetadata, jsonRequestBodyExample }: Props) {
   // - application/x-www-form-urlencoded
   // - image/svg+xml;charset=US-ASCII
 
+  // Including charset such as:
+  // application/json; charset=utf-8
+
   // Show editor:
   // - application/json
   // - application/xml
@@ -216,7 +219,7 @@ function Body({ requestBodyMetadata, jsonRequestBodyExample }: Props) {
   let exampleBody;
   let examplesBodies = [] as any;
 
-  if (contentType === "application/json" || contentType.endsWith("+json")) {
+  if (contentType.includes("application/json") || contentType.endsWith("+json")) {
     if (jsonRequestBodyExample) {
       defaultBody = JSON.stringify(jsonRequestBodyExample, null, 2);
     }
@@ -235,7 +238,7 @@ function Body({ requestBodyMetadata, jsonRequestBodyExample }: Props) {
     language = "json";
   }
 
-  if (contentType === "application/xml" || contentType.endsWith("+xml")) {
+  if (contentType.includes("application/xml") || contentType.endsWith("+xml")) {
     if (jsonRequestBodyExample) {
       try {
         defaultBody = format(json2xml(jsonRequestBodyExample, ""), {
